@@ -10,7 +10,7 @@
         :value="viewers"
         @input="viewers = $event.target.value"
         >
-        <button type="submit" class="btn btn-outline-dark">Qo'shish</button>
+        <button type="submit" class="btn btn-outline-dark" @click="addMovie">Qo'shish</button>
     </form>
    </div>
 </template>
@@ -20,6 +20,17 @@ export default {
         return{
             name: '',
             viewers: '',
+        }
+    },
+    methods:{
+        addMovie(){
+            const newMovie ={
+                    name: this.name,
+                    viewers: this.viewers,
+                    like: false,
+                    fovourite: false,
+            }
+            console.log(newMovie);
         }
     }
 }
