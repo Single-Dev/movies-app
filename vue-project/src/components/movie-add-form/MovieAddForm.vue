@@ -1,16 +1,27 @@
 <template>
    <div class="add-form-div">
     <h3>Yangi kino qo'shish</h3>
-    <form class="form-group d-flex">
-        <input type="text" class="form-control" placeholder="Kino nomi">
-        <input type="text" class="form-control" placeholder="Ko'rilgan soni">
+    <form class="form-group d-flex" @submit.prevent>
+        <input type="text" class="form-control" placeholder="Kino nomi"
+        :value="name" 
+        @input="name = $event.target.value"
+        >
+        <input type="number" class="form-control" placeholder="Ko'rilgan soni"
+        :value="viewers"
+        @input="viewers = $event.target.value"
+        >
         <button type="submit" class="btn btn-outline-dark">Qo'shish</button>
     </form>
    </div>
 </template>
 <script>
 export default {
-    
+    data(){
+        return{
+            name: '',
+            viewers: '',
+        }
+    }
 }
 </script>
 <style>
