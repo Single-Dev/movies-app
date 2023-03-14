@@ -10,7 +10,7 @@
                 <Filters/>
             </div>
             <MovieList :movies="movies"/>
-            <MovieAddForm />
+            <MovieAddForm @createMovie="createMovie"/>
         </div>
     </div>
 </template>
@@ -32,29 +32,14 @@ export default{
     },
     data() {
         return {
-            movies: [
-                {
-                    name: "Omar",
-                    viewers: 455,
-                    like: true,
-                    fovourite: false,
-                    
-                },
-                {
-                    name: "Osamn",
-                    viewers: 455,
-                    like: false,
-                    fovourite: false,
-                },
-                {
-                    name: "Ertugrul",
-                    viewers: 55,
-                    like: false,
-                    fovourite: true,
-                },
-            ],
+            movies: [],
         }
     },
+    methods:{
+        createMovie(item){
+            this.movies.push(item)
+        }
+    }
 }
 </script>
 

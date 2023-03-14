@@ -30,7 +30,9 @@ export default {
                     like: false,
                     fovourite: false,
             }
-            console.log(newMovie);
+            this.$emit("createMovie", newMovie)
+            this.name = ""
+            this.viewers = ""
         }
     }
 }
