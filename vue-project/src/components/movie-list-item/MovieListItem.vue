@@ -23,7 +23,7 @@ export default {
     },
     methods:{
         onLike(){
-            this.$emit("onLike", this.movie_1.id)
+            this.$emit("onLike")
         }
     }
 }
@@ -68,6 +68,9 @@ export default {
         transition: 500ms all;
         transform: translateX(30px);
         opacity: 0;
+    }
+    .list-group-item-label{
+        cursor: pointer;
     }
     .list-group-item.like .fa-star{
         opacity: 1;

@@ -40,7 +40,13 @@ export default{
             this.movies.push(item)
         },
         onLikeHand(id){
-            console.log(id);
+            const arr = this.movies.map(item=>{
+                if (item.id == id){
+                    item.like = !item.like
+                }
+                return item
+            })
+            console.log(arr);
         }
     }
 }
