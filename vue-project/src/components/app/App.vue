@@ -9,7 +9,7 @@
                 <SearchPanel/>
                 <Filters/>
             </div>
-            <MovieList :movies="movies"/>
+            <MovieList :movies="movies" @onlike="onLikeHand"/>
             <MovieAddForm @createMovie="createMovie"/>
         </div>
     </div>
@@ -38,6 +38,9 @@ export default{
     methods:{
         createMovie(item){
             this.movies.push(item)
+        },
+        onLikeHand(id){
+            console.log(id);
         }
     }
 }

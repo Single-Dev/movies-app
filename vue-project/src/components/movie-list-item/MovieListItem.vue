@@ -1,6 +1,6 @@
 <template >
        <li class="list-group-item" :class="[{like: movie_1.like}, {fovourite: movie_1.fovourite}]">
-        <span class="list-group-item-label">{{movie_1.name}}</span>
+        <span class="list-group-item-label" @click="onLike">{{movie_1.name}}</span>
         <div class="d-flex justify-content-center align-items-center">
             <input type="number" class="list-group-item-input" :value="movie_1.viewers">
             <button type="button" class="btn-cookie btn-sm">
@@ -21,6 +21,11 @@ export default {
             required: true,
         },
     },
+    methods:{
+        onLike(){
+            this.$emit("onLike", this.movie_1.id)
+        }
+    }
 }
 </script>
 <style scoped>
