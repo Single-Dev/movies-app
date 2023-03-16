@@ -2,7 +2,7 @@
     <div class="movie-list">
         <h3>Kinolar</h3>
         <ul >
-            <MovieListItem  v-for="movie in movies" :movie_1="movie"/>
+            <MovieListItem  v-for="movie in movies" :movie_1="movie" :key="movie.id"/>
         </ul>
     </div>
 </template>
