@@ -9,7 +9,7 @@
                 <SearchPanel/>
                 <Filters/>
             </div>
-            <MovieList :movies="movies" @onlike="onLikeHand"/>
+            <MovieList :movies="movies" @onToggle="onToggleHandler"/>
             <MovieAddForm @createMovie="createMovie"/>
         </div>
     </div>
@@ -32,21 +32,28 @@ export default{
     },
     data() {
         return {
-            movies: [],
+            movies: [
+                {
+                    name: 'movie name',
+                    viewers: 15,
+                    like: true,
+                    fovourite: false,
+                    id: 1
+                },
+            ],
         }
     },
     methods:{
         createMovie(item){
             this.movies.push(item)
         },
-        onLikeHand(id){
-            const arr = this.movies.map(item=>{
+        onToggleHandler({id, prop}){
+            this.movies = this.movies.map(item=>{
                 if (item.id == id){
-                    item.like = !item.like
+                    return {...item, [prop]: !item[prop]}
                 }
                 return item
             })
-            console.log(arr);
         }
     }
 }
