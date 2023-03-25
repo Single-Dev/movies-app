@@ -10,7 +10,7 @@
                 <Filters/>
             </div>
             <MovieList
-            :movies="movies"
+            :movies="SearchHandler(movies, term)"
             @onToggle="onToggleHandler"
             @OnRemove="OnRemoveHandler"
             />
@@ -45,6 +45,7 @@ export default{
                     id: 1
                 },
             ],
+            term: 'qwS'
         }
     },
     methods:{
@@ -60,7 +61,14 @@ export default{
             })
         },
         OnRemoveHandler(id){
-            this.movies = this.movies.filter(c => c.id != id)
+            this.movies = this.movies.filter(c => c.id != id > -1)
+        },
+        SearchHandler(arr, term){
+            if (term.length ==0){
+                return arr
+            }
+
+            return arr.filter(c=> c.name.toLowerCase().indexOf(term))
         }
     }
 }
