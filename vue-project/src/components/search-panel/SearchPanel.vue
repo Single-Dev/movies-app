@@ -1,11 +1,31 @@
 <template>
     <div>
-        <input type="text" class="search" placeholder="kinolarni qidirsh">
+        <input type="text" class="search" placeholder="kinolarni qidirsh"
+        :value="term"
+        @input="UpdateTerm"
+        >
     </div>
 </template>
 <script>
 export default {
-    
+    props:{
+        Term:{
+            type: Function,
+            required: true
+        }
+    },
+    data(){
+        return{
+            term: ''
+        }
+    },
+    methods: {
+        UpdateTerm(e) {
+            this.term= e.target.value
+            this.Term(this.term)
+        },
+        
+    }
 }
 </script>
 <style scoped>

@@ -6,7 +6,7 @@
             :fovouriteMoviesCount="movies.filter(c => c.fovourite).length"
             />
             <div class="search-panel">
-                <SearchPanel/>
+                <SearchPanel :Term="onTermHandler"/>
                 <Filters/>
             </div>
             <MovieList
@@ -44,8 +44,15 @@ export default{
                     fovourite: false,
                     id: 1
                 },
+                {
+                    name: 'name',
+                    viewers: 15,
+                    like: false,
+                    fovourite: false,
+                    id: 2
+                }
             ],
-            term: 'qwS'
+            term: ''
         }
     },
     methods:{
@@ -67,8 +74,10 @@ export default{
             if (term.length ==0){
                 return arr
             }
-
             return arr.filter(c=> c.name.toLowerCase().indexOf(term))
+        },
+        onTermHandler(term){
+            this.term = term
         }
     }
 }
