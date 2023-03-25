@@ -2,7 +2,12 @@
     <div class="movie-list">
         <h3>Kinolar</h3>
         <ul >
-            <MovieListItem  v-for="movie in movies" :movie_1="movie" :key="movie.id" @onToggle="$emit('onToggle', $event)"/>
+            <MovieListItem
+            v-for="movie in movies"
+            :movie_1="movie"
+            :key="movie.id"
+            @onToggle="$emit('onToggle', $event)"/>
+            @OnRemove="$emit('OnRemove', $event)"
         </ul>
     </div>
 </template>

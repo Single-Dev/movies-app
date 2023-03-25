@@ -9,7 +9,11 @@
                 <SearchPanel/>
                 <Filters/>
             </div>
-            <MovieList :movies="movies" @onToggle="onToggleHandler"/>
+            <MovieList
+            :movies="movies"
+            @onToggle="onToggleHandler"
+            @OnRemove="OnRemoveHandler"
+            />
             <MovieAddForm @createMovie="createMovie"/>
         </div>
     </div>
@@ -54,6 +58,9 @@ export default{
                 }
                 return item
             })
+        },
+        OnRemoveHandler(id){
+            this.movies = this.movies.filter(c => c.id != id)
         }
     }
 }
