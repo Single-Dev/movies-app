@@ -74,7 +74,7 @@ export default{
             if (term.length ==0){
                 return arr
             }
-            return arr.filter(c=> c.name.toLowerCase().indexOf(term))
+            return arr.filter(c=> c.name.toLowerCase().indexOf(term) > -1)
         },
         onTermHandler(term){
             this.term = term
