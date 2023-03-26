@@ -74,7 +74,12 @@ export default{
             if (term.length ==0){
                 return arr
             }
-            return arr.filter(c=> c.name.toLowerCase().indexOf(term) > -1)
+            
+            let result = arr.filter(c=> c.name.toLowerCase().indexOf(term) > -1)
+            if(result.length == 0){
+                console.log('topilmadi');
+            }
+            return result
         },
         onTermHandler(term){
             this.term = term
