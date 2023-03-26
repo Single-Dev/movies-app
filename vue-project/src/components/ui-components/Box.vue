@@ -1,14 +1,12 @@
 <template >
-    <div class="box">
-        <slot></slot>
-    </div>
+    <div class="box"><slot></slot></div>
 </template>
 <script>
 export default {
-    name:'box'
+    name:'Box'
 }
 </script>
-<style scoped>
+<style>
 .box{
     margin-top: 2rem;
     padding: 1.5rem;

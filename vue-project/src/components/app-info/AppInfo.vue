@@ -1,8 +1,8 @@
 <template>
-    <div class="app-info">
+    <Box>
         <p >Barcha kinolar: {{ allMoviesCount }}</p>
         <p >Sevimli kinolar: {{ fovouriteMoviesCount }}</p>
-    </div>
+    </Box>
 </template>
 
 <script>
@@ -21,13 +21,6 @@ export default{
 </script>
 
 <style scoped>
-.app-info{
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: #fcf5f5;
-    border-radius: 5px;
-    box-shadow: 15px 15px 15px rgba(0, 0, 0,  .15);
-}
 p{
     font-size: 1.5rem;
     text-transform: uppercase;

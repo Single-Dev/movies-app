@@ -1,5 +1,5 @@
 <template>
-    <div class="movie-list">
+    <Box >
         <h3>Kinolar</h3>
         <ul >
             <MovieListItem
@@ -10,7 +10,7 @@
             @OnRemove="$emit('OnRemove', $event)"
             />
         </ul>
-    </div>
+    </Box>
 </template>
 <script>
 import MovieListItem from '../movie-list-item/MovieListItem.vue';
@@ -28,11 +28,5 @@ export default {
 }
 </script>
 <style scoped>
-.movie-list {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: #fcf5f5;
-    border-radius: 5px;
-    box-shadow: 15px 15px 15px rgba(0, 0, 0, .15);
-}
+
 </style>

@@ -5,10 +5,10 @@
             :allMoviesCount="movies.length"
             :fovouriteMoviesCount="movies.filter(c => c.fovourite).length"
             />
-            <div class="search-panel">
+            <Box>
                 <SearchPanel :Term="onTermHandler"/>
                 <Filters/>
-            </div>
+            </Box>
             <MovieList
             :movies="SearchHandler(movies, term)"
             @onToggle="onToggleHandler"
@@ -99,13 +99,6 @@ export default{
     background-color: #fff;
     margin: 0 auto;
     padding: 5rem 10px;
-}
-.search-panel{
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: #fcf5f5;
-    border-radius: 5px;
-    box-shadow: 15px 15px 15px rgba(0, 0, 0,  .15);
 }
 </style>
 
