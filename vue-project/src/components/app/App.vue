@@ -10,7 +10,7 @@
                 <Filters/>
             </Box>
             <MovieList
-            :movies="SearchHandler(movies, term)"
+            :movies="onFilterHandler(SearchHandler(movies, term), filter)"
             @onToggle="onToggleHandler"
             @OnRemove="OnRemoveHandler"
             />
@@ -46,13 +46,14 @@ export default{
                 },
                 {
                     name: 'name',
-                    viewers: 15,
+                    viewers: 1005,
                     like: false,
                     fovourite: false,
                     id: 2
                 }
             ],
-            term: ''
+            term: '',
+            filter:'popular'
         }
     },
     methods:{
@@ -83,6 +84,16 @@ export default{
         },
         onTermHandler(term){
             this.term = term
+        },
+        onFilterHandler(arr, filter){
+            switch (filter) {
+                case 'popular':
+                    return arr.filter(c => c.like)            
+                case 'mostViewrs':
+                    return arr.filter(c => c.viewers > 500)
+                default:
+                    return arr
+            }
         }
     }
 }
