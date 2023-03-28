@@ -32,7 +32,7 @@ export default{
         SearchPanel,
         Filters,
         MovieList,
-        MovieAddForm
+        MovieAddForm,
     },
     data() {
         return {
@@ -53,7 +53,7 @@ export default{
                 }
             ],
             term: '',
-            filter:'popular'
+            filter:'all'
         }
     },
     methods:{
