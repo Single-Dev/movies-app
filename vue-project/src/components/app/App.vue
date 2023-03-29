@@ -7,7 +7,7 @@
             />
             <Box>
                 <SearchPanel :Term="onTermHandler"/>
-                <Filters :UpdateFilterHandler="UpdateFilterHandler"/>
+                <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter"/>
             </Box>
             <MovieList
             :movies="onFilterHandler(SearchHandler(movies, term), filter)"
