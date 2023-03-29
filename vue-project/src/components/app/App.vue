@@ -7,7 +7,7 @@
             />
             <Box>
                 <SearchPanel :Term="onTermHandler"/>
-                <Filters/>
+                <Filters :UpdateFilterHandler="UpdateFilterHandler"/>
             </Box>
             <MovieList
             :movies="onFilterHandler(SearchHandler(movies, term), filter)"
@@ -94,6 +94,9 @@ export default{
                 default:
                     return arr
             }
+        },
+        UpdateFilterHandler(filter){
+            this.filter = filter
         }
     }
 }
