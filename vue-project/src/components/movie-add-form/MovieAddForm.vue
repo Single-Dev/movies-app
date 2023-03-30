@@ -2,14 +2,15 @@
    <Box >
     <h3>Yangi kino qo'shish</h3>
     <form class="form-group d-flex" @submit.prevent>
-        <input type="text" class="form-control" placeholder="Kino nomi"
-        :value="name" 
-        @input="name = $event.target.value"
-        >
-        <input type="number" class="form-control" placeholder="Ko'rilgan soni"
-        :value="viewers"
-        @input="viewers = $event.target.value"
-        >
+        <Input
+        placeholder="Kino nomi"
+        v-model="name"
+        />
+        <Input
+        placeholder="Ko'rilgan soni"
+        type="number"
+        v-model="viewers"
+        />
         <Button type="submit" class="btn-outline-dark" @click="addMovie">Qo'shish</Button>
     </form>
 </Box>
