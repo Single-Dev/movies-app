@@ -1,18 +1,14 @@
 <template>
     <div class="btn-group">
-        <Button 
+        <Button v-for="btn in FilterBtns"
         type="button"
-        @click="FilterFunc('all')"
-        :class="[filterName == 'all' ? 'btn-dark': 'btn-outline-dark']"
-        >Barchasi</Button>
-        <Button type="button"
-        @click="FilterFunc('popular')"
-        :class="[filterName == 'popular' ? 'btn-dark': 'btn-outline-dark']"
-        >Mashxurlar</Button>
-        <Button type="button"
-        @click="FilterFunc('mostViewrs')"
-        :class="[filterName == 'mostViewrs' ? 'btn-dark': 'btn-outline-dark']"
-        >Ko'p ko'rilgan</Button>
+        :class="[filterName == btn.name ? 'btn-dark': 'btn-outline-dark']"
+        @click="FilterFunc(btn.name)"
+        >
+        {{ btn.title }}
+        </Button>
+
+
     </div>
 </template>
 <script>
@@ -29,7 +25,21 @@ export default {
     },
     data(){
         return{
-            filter: "all"
+            filter: "all",
+            FilterBtns:[
+            {
+                title: 'Barcha kinolar',
+                name:'all'
+            },
+            {
+                title: 'Mashxur kinolar',
+                name:'popular'
+            },
+            {
+                title: "Eng ko'p ko'rilgan",
+                name:'mostViewrs'
+            },
+            ]
         }
     },
     methods: {
