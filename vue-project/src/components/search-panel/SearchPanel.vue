@@ -1,9 +1,9 @@
 <template>
     <div>
-        <input type="text" class="search" placeholder="kinolarni qidirsh"
-        :value="term"
+        <Input class="search" placeholder="kinolarni qidirsh"
         @input="UpdateTerm"
-        >
+        v-model="term"
+        />
     </div>
 </template>
 <script>
