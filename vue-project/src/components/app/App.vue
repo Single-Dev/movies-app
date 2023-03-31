@@ -38,15 +38,15 @@ export default{
         return {
             movies: [
                 {
-                    name: 'movie name',
-                    viewers: 15,
+                    name: 'Spiderman',
+                    viewers: 1500,
                     like: true,
                     fovourite: false,
                     id: 1
                 },
                 {
-                    name: 'name',
-                    viewers: 1005,
+                    name: 'Ironman',
+                    viewers: 1545,
                     like: false,
                     fovourite: false,
                     id: 2
