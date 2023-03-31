@@ -25,7 +25,8 @@ import AppInfo from '../app-info/AppInfo.vue';
 import SearchPanel from '../search-panel/SearchPanel.vue'
 import Filters from '../filters/Filter.vue'
 import MovieList from '../movie-list/MovieList.vue'
-import MovieAddForm from '../movie-add-form/MovieAddForm.vue';
+import MovieAddForm from '../movie-add-form/MovieAddForm.vue'
+import axios from 'axios'
 export default{
     components:{
         AppInfo,
@@ -36,22 +37,7 @@ export default{
     },
     data() {
         return {
-            movies: [
-                {
-                    name: 'Spiderman',
-                    viewers: 1500,
-                    like: true,
-                    fovourite: false,
-                    id: 1
-                },
-                {
-                    name: 'Ironman',
-                    viewers: 1545,
-                    like: false,
-                    fovourite: false,
-                    id: 2
-                }
-            ],
+            movies: [],
             term: '',
             filter:'all'
         }
@@ -97,7 +83,25 @@ export default{
         },
         UpdateFilterHandler(filter){
             this.filter = filter
+        },
+        async getApidata(){
+            try {
+                const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts/?_limit=10')
+                const newArr = data.map(item => ({
+                    id: item.id,
+                    name: item.title,
+                    like: false,
+                    fovourite: false,
+                    viewers: item.id * 5
+                }))
+                this.movies = newArr
+            } catch (error) {
+                alert(error.message)
+            }
         }
+    },
+    mounted() {
+        this.getApidata()
     }
 }
 </script>
