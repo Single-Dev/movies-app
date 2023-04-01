@@ -126,11 +126,15 @@ export default {
         },
         Pagenation(page_number){
             this.page = page_number
-            this.getApidata()
         }
     },
     mounted() {
         this.getApidata()
+    },
+    watch:{
+        page(){
+            this.getApidata()
+        }
     }
 }
 </script>
