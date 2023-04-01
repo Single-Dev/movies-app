@@ -1,20 +1,20 @@
 <template>
     <div class="app">
         <div class="content">
-            <AppInfo
-            :allMoviesCount="movies.length"
-            :fovouriteMoviesCount="movies.filter(c => c.fovourite).length"
-            />
+            <AppInfo :allMoviesCount="movies.length" :fovouriteMoviesCount="movies.filter(c => c.fovourite).length" />
             <Box>
-                <SearchPanel :Term="onTermHandler"/>
-                <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter"/>
+                <SearchPanel :Term="onTermHandler" />
+                <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter" />
             </Box>
-            <MovieList
-            :movies="onFilterHandler(SearchHandler(movies, term), filter)"
-            @onToggle="onToggleHandler"
-            @OnRemove="OnRemoveHandler"
-            />
-            <MovieAddForm @createMovie="createMovie"/>
+            <Box v-if="!movies.length && !isLoading">
+                <p class="text-danger text-center">Kinolar Topilmadi.</p>
+            </Box>
+            <Box v-else-if="isLoading">
+                <loader/>
+            </Box>
+            <MovieList v-else :movies="onFilterHandler(SearchHandler(movies, term), filter)" @onToggle="onToggleHandler"
+                @OnRemove="OnRemoveHandler" />
+            <MovieAddForm @createMovie="createMovie" />
         </div>
     </div>
 </template>
@@ -27,8 +27,8 @@ import Filters from '../filters/Filter.vue'
 import MovieList from '../movie-list/MovieList.vue'
 import MovieAddForm from '../movie-add-form/MovieAddForm.vue'
 import axios from 'axios'
-export default{
-    components:{
+export default {
+    components: {
         AppInfo,
         SearchPanel,
         Filters,
@@ -39,54 +39,56 @@ export default{
         return {
             movies: [],
             term: '',
-            filter:'all'
+            filter: 'all',
+            isLoading: false,
         }
     },
-    methods:{
-        createMovie(item){
+    methods: {
+        createMovie(item) {
             this.movies.push(item)
         },
-        onToggleHandler({id, prop}){
-            this.movies = this.movies.map(item=>{
-                if (item.id == id){
-                    return {...item, [prop]: !item[prop]}
+        onToggleHandler({ id, prop }) {
+            this.movies = this.movies.map(item => {
+                if (item.id == id) {
+                    return { ...item, [prop]: !item[prop] }
                 }
                 return item
             })
         },
-        OnRemoveHandler(id){
+        OnRemoveHandler(id) {
             this.movies = this.movies.filter(c => c.id != id)
         },
-        SearchHandler(arr, term){
-            if (term.length ==0){
+        SearchHandler(arr, term) {
+            if (term.length == 0) {
                 return arr
             }
-            
-            let result = arr.filter(c=> c.name.toLowerCase().indexOf(term) > -1)
-            if(result.length == 0){
+
+            let result = arr.filter(c => c.name.toLowerCase().indexOf(term) > -1)
+            if (result.length == 0) {
                 console.log('topilmadi');
             }
             return result
         },
-        onTermHandler(term){
+        onTermHandler(term) {
             this.term = term
         },
-        onFilterHandler(arr, filter){
+        onFilterHandler(arr, filter) {
             switch (filter) {
                 case 'popular':
-                    return arr.filter(c => c.like)            
+                    return arr.filter(c => c.like)
                 case 'mostViewrs':
                     return arr.filter(c => c.viewers > 500)
                 default:
                     return arr
             }
         },
-        UpdateFilterHandler(filter){
+        UpdateFilterHandler(filter) {
             this.filter = filter
         },
-        async getApidata(){
+        async getApidata() {
             try {
-                const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts/?_limit=10')
+                this.isLoading = true
+                const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts/?_limit=10')
                 const newArr = data.map(item => ({
                     id: item.id,
                     name: item.title,
@@ -94,10 +96,11 @@ export default{
                     fovourite: false,
                     viewers: item.id * 15
                 }))
-                console.log(newArr);
                 this.movies = newArr
             } catch (error) {
                 alert(error.message)
+            } finally {
+                this.isLoading = false
             }
         }
     },
@@ -108,11 +111,12 @@ export default{
 </script>
 
 <style>
-.container{
+.container {
     height: 100vh;
     color: #000;
 }
-.content{
+
+.content {
     width: 1000px;
     min-height: 700px;
     background-color: #fff;
