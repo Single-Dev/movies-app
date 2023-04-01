@@ -14,6 +14,15 @@
             </Box>
             <MovieList v-else :movies="onFilterHandler(SearchHandler(movies, term), filter)" @onToggle="onToggleHandler"
                 @OnRemove="OnRemoveHandler" />
+            <Box class="d-flex justify-content-center">
+                <PaginationBtns
+                class="pagination pagination-sm"
+                v-for="pageNumber in totalPages"
+                :pageNumber="pageNumber"
+                :page="page"
+                @Pagenation="Pagenation"
+                />
+            </Box>
             <MovieAddForm @createMovie="createMovie" />
         </div>
     </div>
@@ -26,6 +35,7 @@ import SearchPanel from '../search-panel/SearchPanel.vue'
 import Filters from '../filters/Filter.vue'
 import MovieList from '../movie-list/MovieList.vue'
 import MovieAddForm from '../movie-add-form/MovieAddForm.vue'
+import PaginationBtns from '../pagination-btns/PaginationBtns.vue' 
 import axios from 'axios'
 export default {
     components: {
@@ -34,6 +44,7 @@ export default {
         Filters,
         MovieList,
         MovieAddForm,
+        PaginationBtns
     },
     data() {
         return {
@@ -41,6 +52,9 @@ export default {
             term: '',
             filter: 'all',
             isLoading: false,
+            limit: 10,
+            page: 1,
+            totalPages: 0,
         }
     },
     methods: {
@@ -88,8 +102,15 @@ export default {
         async getApidata() {
             try {
                 this.isLoading = true
-                const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts/?_limit=10')
-                const newArr = data.map(item => ({
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts/',{
+                    params:{
+                        _limit: this.limit,
+                        _page: this.page
+                    }
+                })
+                this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+                console.log(this.totalPages);
+                const newArr = response.data.map(item => ({
                     id: item.id,
                     name: item.title,
                     like: false,
@@ -102,6 +123,10 @@ export default {
             } finally {
                 this.isLoading = false
             }
+        },
+        Pagenation(page_number){
+            this.page = page_number
+            this.getApidata()
         }
     },
     mounted() {
