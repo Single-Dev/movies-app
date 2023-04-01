@@ -5,11 +5,13 @@
         <Input
         placeholder="Kino nomi"
         v-model="name"
+        :value="name"
         />
         <Input
         placeholder="Ko'rilgan soni"
         type="number"
         v-model="viewers"
+        :value="viewers"
         />
         <Button type="submit" class="btn-outline-dark" @click="addMovie">Qo'shish</Button>
     </form>

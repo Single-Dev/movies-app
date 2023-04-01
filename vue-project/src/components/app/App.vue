@@ -55,7 +55,7 @@ export default{
             })
         },
         OnRemoveHandler(id){
-            this.movies = this.movies.filter(c => c.id != id > -1)
+            this.movies = this.movies.filter(c => c.id != id)
         },
         SearchHandler(arr, term){
             if (term.length ==0){
@@ -92,8 +92,9 @@ export default{
                     name: item.title,
                     like: false,
                     fovourite: false,
-                    viewers: item.id * 5
+                    viewers: item.id * 15
                 }))
+                console.log(newArr);
                 this.movies = newArr
             } catch (error) {
                 alert(error.message)
