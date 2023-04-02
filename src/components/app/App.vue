@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <div class="content">
-            <AppInfo :allMoviesCount="movies.length" :fovouriteMoviesCount="movies.filter(c => c.fovourite).length" />
+            <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.fovourite).length" />
             <Box>
                 <SearchPanel :Term="onTermHandler" />
                 <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter" />
@@ -55,11 +55,13 @@ export default {
             limit: 10,
             page: 1,
             totalPages: 0,
+            movies_count: 0,
         }
     },
     methods: {
-        createMovie(item) {
-            this.movies.push(item)
+        async createMovie(item) {
+            const response = await axios.post('https://jsonplaceholder.typicode.com/posts/', item)
+            this.movies.push(response.data)
         },
         onToggleHandler({ id, prop }) {
             this.movies = this.movies.map(item => {
@@ -78,9 +80,6 @@ export default {
             }
 
             let result = arr.filter(c => c.name.toLowerCase().indexOf(term) > -1)
-            if (result.length == 0) {
-                console.log('topilmadi');
-            }
             return result
         },
         onTermHandler(term) {
@@ -109,7 +108,7 @@ export default {
                     }
                 })
                 this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
-                console.log(this.totalPages);
+                this.movies_count = response.headers['x-total-count']
                 const newArr = response.data.map(item => ({
                     id: item.id,
                     name: item.title,
