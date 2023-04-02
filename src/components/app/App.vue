@@ -60,8 +60,12 @@ export default {
     },
     methods: {
         async createMovie(item) {
-            const response = await axios.post('https://jsonplaceholder.typicode.com/posts/', item)
-            this.movies.push(response.data)
+            try {
+                const response = await axios.post('https://jsonplaceholder.typicode.com/posts/', item)
+                this.movies.push(response.data)
+            } catch (error) {
+                alert(error.message)
+            }
         },
         onToggleHandler({ id, prop }) {
             this.movies = this.movies.map(item => {
@@ -71,8 +75,13 @@ export default {
                 return item
             })
         },
-        OnRemoveHandler(id) {
-            this.movies = this.movies.filter(c => c.id != id)
+        async OnRemoveHandler(id) {
+            try {
+                const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+                this.movies = this.movies.filter(c => c.id != id)
+            } catch (error) {
+                alert(error.message)
+            }
         },
         SearchHandler(arr, term) {
             if (term.length == 0) {
