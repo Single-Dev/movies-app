@@ -9,7 +9,7 @@
             <Box v-if="!movies.length && !isLoading">
                 <p class="text-danger text-center">Kinolar Topilmadi.</p>
             </Box>
-            <Box v-else-if="isLoading">
+            <Box v-else-if="isLoading" class="d-flex justify-content-center">
                 <loader/>
             </Box>
             <MovieList v-else :movies="onFilterHandler(SearchHandler(movies, term), filter)" @onToggle="onToggleHandler"
