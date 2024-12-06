@@ -166,6 +166,12 @@ export default {
     padding: 5rem 10px;
 }
 
+@media (max-width: 750px) {
+    .content {
+        width: 400px;
+    }
+}
+
 /* Tablet screens (768px and up) */
 
 /* Desktop screens (1024px and up) */

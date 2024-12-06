@@ -18,7 +18,7 @@ export default {
 
 @media (max-width: 750px) {
     .box {
-        width: 330px;
+        width: 400px;
     }
 }
 
