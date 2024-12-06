@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <div class="content">
-            <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.fovourite).length" />
+            <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
             <Box>
                 <SearchPanel :Term="onTermHandler" />
                 <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter" />
@@ -14,7 +14,7 @@
             </Box>
             <MovieList v-else :movies="onFilterHandler(SearchHandler(movies, term), filter)" @onToggle="onToggleHandler"
                 @OnRemove="OnRemoveHandler" />
-            <Box class="d-flex justify-content-center">
+            <!-- <Box class="d-flex justify-content-center">
                 <PaginationBtns
                 class="pagination pagination-sm"
                 v-for="pageNumber in totalPages"
@@ -22,8 +22,8 @@
                 :page="page"
                 @Pagenation="Pagenation"
                 />
-            </Box>
-            <MovieAddForm @createMovie="createMovie" />
+            </Box> -->
+            <!-- <MovieAddForm @createMovie="createMovie" /> -->
         </div>
     </div>
 </template>
@@ -92,14 +92,14 @@ export default {
             return result
         },
         onTermHandler(term) {
-            this.term = term
+            this.term = term.toLowerCase()
         },
         onFilterHandler(arr, filter) {
             switch (filter) {
                 case 'popular':
-                    return arr.filter(c => c.like)
-                case 'mostViewrs':
-                    return arr.filter(c => c.viewers > 500)
+                    return arr.filter(c => c.famous)
+                case 'new':
+                    return arr.filter(c => c.new)
                 default:
                     return arr
             }
@@ -110,20 +110,25 @@ export default {
         async getApidata() {
             try {
                 this.isLoading = true
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts/',{
-                    params:{
-                        _limit: this.limit,
-                        _page: this.page
-                    }
+                const response = await axios.get('https://6752884ad1983b9597b67850.mockapi.io/telegram',{
+                    // params:{
+                    //     _limit: this.limit,
+                    //     _page: this.page
+                    // }
                 })
-                this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
-                this.movies_count = response.headers['x-total-count']
+                // this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+                this.movies_count = response.data.length
+
                 const newArr = response.data.map(item => ({
                     id: item.id,
-                    name: item.title,
-                    like: false,
-                    fovourite: false,
-                    viewers: item.id * 15
+                    name: item.name,
+                    post_id: item.post_id,
+                    caption: item.caption,
+                    new: item.new,
+                    date: item.date,
+                    price: item.price,
+                    famous: item.famous
+                    // like: false,
                 }))
                 this.movies = newArr
             } catch (error) {
@@ -160,6 +165,14 @@ export default {
     margin: 0 auto;
     padding: 5rem 10px;
 }
+
+/* Tablet screens (768px and up) */
+
+/* Desktop screens (1024px and up) */
+/* @media (min-width: 1024px) {
+  
+} */
+
 </style>
 
 

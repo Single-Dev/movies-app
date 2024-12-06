@@ -1,15 +1,16 @@
 <template >
        <li class="list-group-item" :class="[{like: movie_1.like}, {fovourite: movie_1.fovourite}]">
-        <span class="list-group-item-label" @click="$emit('onToggle', {id: movie_1.id, prop: 'like'} )">{{movie_1.name}}</span>
+        <span class="list-group-item-label" >{{movie_1.name}}</span>
         <div class="d-flex justify-content-center align-items-center">
-            <input type="number" class="list-group-item-input" :value="movie_1.viewers">
+            <!-- <input type="number" class="list-group-item-input" :value="movie_1.viewers">
             <button @click="$emit('onToggle', {id: movie_1.id, prop: 'fovourite'})" type="button" class="btn-cookie btn-sm">
                 <i class="fas fa-cookie"></i>
             </button>
             <button type="button" class="btn-trash btn-sm" @click="$emit('OnRemove', movie_1.id)">
                 <i class="fas fa-trash"></i>
             </button>
-            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i> -->
+            <!-- <button @click="$emit('onToggle', {id: movie_1.id, prop: 'like'} )">Like</button> -->
         </div>
        </li>
 </template>

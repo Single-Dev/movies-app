@@ -1,7 +1,7 @@
 <template>
     <Box>
         <p >Barcha kinolar: {{ allMoviesCount }}</p>
-        <p >Sevimli kinolar: {{ fovouriteMoviesCount }}</p>
+        <p >Yangi kinolar: {{ fovouriteMoviesCount }}</p>
     </Box>
 </template>
 

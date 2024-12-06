@@ -13,5 +13,14 @@ export default {
     background-color: #fcf5f5;
     border-radius: 5px;
     box-shadow: 15px 15px 15px rgba(0, 0, 0,  .15);
+    width: 750px;
 }
+
+@media (max-width: 750px) {
+    .box {
+        width: 330px;
+    }
+}
+
+
 </style>

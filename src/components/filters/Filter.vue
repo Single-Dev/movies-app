@@ -36,8 +36,8 @@ export default {
                 name:'popular'
             },
             {
-                title: "Eng ko'p ko'rilgan",
-                name:'mostViewrs'
+                title: "Yangi",
+                name:'new'
             },
             ]
         }
