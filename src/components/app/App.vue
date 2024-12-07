@@ -3,6 +3,7 @@
         <div class="content">
             <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
             <Box>
+                <h1>{{ user }}</h1>
                 <SearchPanel :Term="onTermHandler" />
                 <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter" />
             </Box>
@@ -10,7 +11,7 @@
                 <p class="text-danger text-center">Kinolar Topilmadi.</p>
             </Box>
             <Box v-else-if="isLoading" class="d-flex justify-content-center">
-                <loader/>
+                <loader />
             </Box>
             <MovieList v-else :movies="onFilterHandler(SearchHandler(movies, term), filter)" @onToggle="onToggleHandler"
                 @OnRemove="OnRemoveHandler" />
@@ -35,7 +36,7 @@ import SearchPanel from '../search-panel/SearchPanel.vue'
 import Filters from '../filters/Filter.vue'
 import MovieList from '../movie-list/MovieList.vue'
 import MovieAddForm from '../movie-add-form/MovieAddForm.vue'
-import PaginationBtns from '../pagination-btns/PaginationBtns.vue' 
+import PaginationBtns from '../pagination-btns/PaginationBtns.vue'
 import axios from 'axios'
 export default {
     components: {
@@ -56,6 +57,13 @@ export default {
             page: 1,
             totalPages: 0,
             movies_count: 0,
+            telegram: window.Telegram.WebApp,
+            user: {
+                id: null,
+                firstName: '',
+                lastName: '',
+                username: '',
+            },
         }
     },
     methods: {
@@ -110,7 +118,7 @@ export default {
         async getApidata() {
             try {
                 this.isLoading = true
-                const response = await axios.get('https://6752884ad1983b9597b67850.mockapi.io/telegram',{
+                const response = await axios.get('https://6752884ad1983b9597b67850.mockapi.io/telegram', {
                     // params:{
                     //     _limit: this.limit,
                     //     _page: this.page
@@ -137,15 +145,32 @@ export default {
                 this.isLoading = false
             }
         },
-        Pagenation(page_number){
+        Pagenation(page_number) {
             this.page = page_number
-        }
+        },
+        greetUser() {
+            if (this.user.firstName) {
+                return `Hello, ${this.user.firstName}!`;
+            }
+            return 'Hello, guest!';
+        },
     },
     mounted() {
         this.getApidata()
+        Telegram.WebApp.ready();
+        if (Telegram && Telegram.WebApp) {
+            const tgUser = Telegram.WebApp.initDataUnsafe.user;
+            this.user = {
+                id: tgUser.id,
+                firstName: tgUser.first_name,
+                lastName: tgUser.last_name,
+                username: tgUser.username,
+            };
+            console.log(this.user); // Displays the user object
+        }
     },
-    watch:{
-        page(){
+    watch: {
+        page() {
             this.getApidata()
         }
     }
@@ -178,7 +203,4 @@ export default {
 /* @media (min-width: 1024px) {
   
 } */
-
 </style>
-
-

@@ -3,7 +3,6 @@
         <span class="list-group-item-label" >{{movie_1.name}}</span>
         <div class="d-flex justify-content-center align-items-center">
             <p>new: {{ movie_1.new }}</p>
-            <p>famous: {{ movie_1.famous }}</p>
             <!-- <input type="number" class="list-group-item-input" :value="movie_1.viewers">
             <button @click="$emit('onToggle', {id: movie_1.id, prop: 'fovourite'})" type="button" class="btn-cookie btn-sm">
                 <i class="fas fa-cookie"></i>
