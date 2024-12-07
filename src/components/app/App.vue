@@ -3,8 +3,8 @@
         <div class="content">
             <Box><h1>Hello {{ user.firstName }}</h1></Box>
             <Box>
-                <p>Current Theme: {{ user.preferences.theme }}</p>
-                <button @click="toggleTheme">Toggle Theme</button>
+                <p>Current Theme: {{ test }}</p>
+                <!-- <button @click="toggleTheme">Toggle Theme</button> -->
             </Box>
             <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
             
@@ -68,7 +68,7 @@ export default {
                 firstName: '',
                 lastName: '',
                 username: '',
-                preferences: ''
+                test: ''
             },
         }
     },
@@ -156,25 +156,27 @@ export default {
             this.page = page_number
         },
        
-        toggleTheme() {
-            this.user.preferences.theme =
-                this.user.preferences.theme === 'light' ? 'dark' : 'light';
-        },
+        // toggleTheme() {
+        //     this.user.preferences.theme =
+        //         this.user.preferences.theme === 'light' ? 'dark' : 'light';
+        // },
     },
     mounted() {
         this.getApidata()
         Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
         if (Telegram && Telegram.WebApp) {
             const tgUser = Telegram.WebApp.initDataUnsafe.user;
+            this.test = tgUser
             this.user = {
                 id: tgUser.id,
                 firstName: tgUser.first_name,
                 lastName: tgUser.last_name,
                 username: tgUser.username,
-                preferences: tgUser.preferences
             };
             console.log(this.user); // Displays the user object
         }
+        
     },
     watch: {
         page() {
@@ -204,10 +206,4 @@ export default {
     }
 }
 
-/* Tablet screens (768px and up) */
-
-/* Desktop screens (1024px and up) */
-/* @media (min-width: 1024px) {
-  
-} */
 </style>
