@@ -1,10 +1,12 @@
 <template>
     <div class="app">
         <div class="content">
-            <Box><h1>Hello {{ user.firstName }}</h1></Box>
-          
+            <Box>
+                <h1>Hello {{ user.firstName }}</h1>
+            </Box>
+
             <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
-            
+
             <!-- <Box>
                 <SearchPanel :Term="onTermHandler" />
                 <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter" />
@@ -151,7 +153,7 @@ export default {
         Pagenation(page_number) {
             this.page = page_number
         },
-       
+
         // toggleTheme() {
         //     this.user.preferences.theme =
         //         this.user.preferences.theme === 'light' ? 'dark' : 'light';
@@ -160,9 +162,8 @@ export default {
     mounted() {
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
-        if (!Telegram.WebApp.isExpanded) {
-        Telegram.WebApp.setHeight(Telegram.WebApp.viewportStableHeight); // Fallback
-      }
+        console.log(Telegram.WebApp.isExpanded);
+
         this.getApidata()
         if (Telegram && Telegram.WebApp) {
             const tgUser = Telegram.WebApp.initDataUnsafe.user;
@@ -174,7 +175,7 @@ export default {
             };
             console.log(this.user); // Displays the user object
         }
-        
+
     },
     watch: {
         page() {
@@ -191,17 +192,32 @@ export default {
 }
 
 .content {
-    width: 400px;
-    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    /* Fill the WebView */
+    width: 100%;
+    /* width: 400px;
+    min-height: 700px; */
     background-color: #fff;
     margin: 0 auto;
-    padding: 5rem 10px;
+    /* padding: 5rem 10px; */
 }
+
+.app {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 
 @media (max-width: 750px) {
     .content {
         width: 350px;
     }
 }
-
 </style>
