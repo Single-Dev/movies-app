@@ -2,10 +2,7 @@
     <div class="app">
         <div class="content">
             <Box><h1>Hello {{ user.firstName }}</h1></Box>
-            <Box>
-                <p>Current Theme: {{ test }}</p>
-                <!-- <button @click="toggleTheme">Toggle Theme</button> -->
-            </Box>
+          
             <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
             
             <!-- <Box>
@@ -68,7 +65,6 @@ export default {
                 firstName: '',
                 lastName: '',
                 username: '',
-                test: ''
             },
         }
     },
@@ -162,12 +158,14 @@ export default {
         // },
     },
     mounted() {
-        this.getApidata()
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
+        if (!Telegram.WebApp.isExpanded) {
+        Telegram.WebApp.setHeight(Telegram.WebApp.viewportStableHeight); // Fallback
+      }
+        this.getApidata()
         if (Telegram && Telegram.WebApp) {
             const tgUser = Telegram.WebApp.initDataUnsafe.user;
-            this.test = tgUser
             this.user = {
                 id: tgUser.id,
                 firstName: tgUser.first_name,
