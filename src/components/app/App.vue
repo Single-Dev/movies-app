@@ -1,8 +1,8 @@
 <template>
     <div class="app">
         <div class="content">
+            <Box><h1>Hello {{ user.firstName }}</h1></Box>
             <Box>
-                <h1>Hello {{ user.firstName }}</h1>
                 <p>Current Theme: {{ user.preferences.theme }}</p>
                 <button @click="toggleTheme">Toggle Theme</button>
             </Box>
@@ -191,7 +191,7 @@ export default {
 }
 
 .content {
-    width: 1000px;
+    width: 400px;
     min-height: 700px;
     background-color: #fff;
     margin: 0 auto;
@@ -200,7 +200,7 @@ export default {
 
 @media (max-width: 750px) {
     .content {
-        width: 400px;
+        width: 350px;
     }
 }
 

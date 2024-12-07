@@ -13,12 +13,11 @@ export default {
     background-color: #fcf5f5;
     border-radius: 5px;
     box-shadow: 15px 15px 15px rgba(0, 0, 0,  .15);
-    width: 750px;
 }
 
-@media (max-width: 750px) {
+@media (min-width: 1500px) {
     .box {
-        width: 400px;
+        width: 340px;
     }
 }
 
