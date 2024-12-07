@@ -1,9 +1,14 @@
 <template>
     <div class="app">
         <div class="content">
-            <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
             <Box>
-                <h1>{{ user }}</h1>
+                <h1>Hello {{ user.firstName }}</h1>
+                <p>Current Theme: {{ user.preferences.theme }}</p>
+                <button @click="toggleTheme">Toggle Theme</button>
+            </Box>
+            <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
+            
+            <!-- <Box>
                 <SearchPanel :Term="onTermHandler" />
                 <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter" />
             </Box>
@@ -14,7 +19,7 @@
                 <loader />
             </Box>
             <MovieList v-else :movies="onFilterHandler(SearchHandler(movies, term), filter)" @onToggle="onToggleHandler"
-                @OnRemove="OnRemoveHandler" />
+                @OnRemove="OnRemoveHandler" /> -->
             <!-- <Box class="d-flex justify-content-center">
                 <PaginationBtns
                 class="pagination pagination-sm"
@@ -63,6 +68,7 @@ export default {
                 firstName: '',
                 lastName: '',
                 username: '',
+                preferences: ''
             },
         }
     },
@@ -103,6 +109,7 @@ export default {
             this.term = term.toLowerCase()
         },
         onFilterHandler(arr, filter) {
+
             switch (filter) {
                 case 'popular':
                     return arr.filter(c => c.famous)
@@ -148,11 +155,10 @@ export default {
         Pagenation(page_number) {
             this.page = page_number
         },
-        greetUser() {
-            if (this.user.firstName) {
-                return `Hello, ${this.user.firstName}!`;
-            }
-            return 'Hello, guest!';
+       
+        toggleTheme() {
+            this.user.preferences.theme =
+                this.user.preferences.theme === 'light' ? 'dark' : 'light';
         },
     },
     mounted() {
@@ -165,6 +171,7 @@ export default {
                 firstName: tgUser.first_name,
                 lastName: tgUser.last_name,
                 username: tgUser.username,
+                preferences: tgUser.preferences
             };
             console.log(this.user); // Displays the user object
         }
