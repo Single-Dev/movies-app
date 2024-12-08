@@ -1,12 +1,8 @@
 <template>
     <div class="app">
         <div class="content">
-            <Box>
-                <h1>Hello {{ user.firstName }}</h1>
-            </Box>
-
-            <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" />
-
+            <!-- <Home/> -->
+            <!-- <AppInfo :allMoviesCount="movies_count" :fovouriteMoviesCount="movies.filter(c => c.new).length" /> -->
             <!-- <Box>
                 <SearchPanel :Term="onTermHandler" />
                 <Filters :UpdateFilterHandler="UpdateFilterHandler" :filterName="filter" />
@@ -29,6 +25,7 @@
                 />
             </Box> -->
             <!-- <MovieAddForm @createMovie="createMovie" /> -->
+             <Home/>
         </div>
     </div>
 </template>
@@ -41,6 +38,8 @@ import Filters from '../filters/Filter.vue'
 import MovieList from '../movie-list/MovieList.vue'
 import MovieAddForm from '../movie-add-form/MovieAddForm.vue'
 import PaginationBtns from '../pagination-btns/PaginationBtns.vue'
+// import NavBar from '../nav/NavBar.vue';
+import Home from '../home/Home.vue';
 import axios from 'axios'
 export default {
     components: {
@@ -49,7 +48,9 @@ export default {
         Filters,
         MovieList,
         MovieAddForm,
-        PaginationBtns
+        PaginationBtns,
+        // NavBar,
+        Home
     },
     data() {
         return {
